@@ -1,0 +1,285 @@
+GAS LISTING /tmp/ccVyCUB5.s 			page 1
+
+
+   1              		.file	"Scheduler.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              		.align	2
+   7              		.globl	_ZN9Scheduler3getEv
+   9              	_ZN9Scheduler3getEv:
+  10              	.LFB14:
+  11              		.file 1 "src/Scheduler.cpp"
+   1:src/Scheduler.cpp **** #include "../h/Scheduler.hpp"
+   2:src/Scheduler.cpp **** 
+   3:src/Scheduler.cpp **** SchedulerNode* Scheduler::head, *Scheduler::tail;
+   4:src/Scheduler.cpp **** 
+   5:src/Scheduler.cpp **** SchedulerNode *Scheduler::get() {
+  12              		.loc 1 5 33
+  13              		.cfi_startproc
+  14 0000 130101FF 		addi	sp,sp,-16
+  15              		.cfi_def_cfa_offset 16
+  16 0004 23348100 		sd	s0,8(sp)
+  17              		.cfi_offset 8, -8
+  18 0008 13040101 		addi	s0,sp,16
+  19              		.cfi_def_cfa 8, 0
+   6:src/Scheduler.cpp ****     if(!head)return nullptr;
+  20              		.loc 1 6 5
+  21              		.loc 1 6 8 is_stmt 0
+  22 000c 17050000 		ld	a0,.LANCHOR0
+  22      03350500 
+  23              		.loc 1 6 5
+  24 0014 630C0500 		beqz	a0,.L1
+   7:src/Scheduler.cpp **** 
+   8:src/Scheduler.cpp ****     SchedulerNode* elem = head;
+  25              		.loc 1 8 5 is_stmt 1
+  26              	.LVL0:
+   9:src/Scheduler.cpp ****     head = head->next;
+  27              		.loc 1 9 5
+  28              		.loc 1 9 18 is_stmt 0
+  29 0018 83378500 		ld	a5,8(a0)
+  30              		.loc 1 9 10
+  31 001c 17070000 		sd	a5,.LANCHOR0,a4
+  31      2330F700 
+  10:src/Scheduler.cpp **** 
+  11:src/Scheduler.cpp ****     if(!head) tail = nullptr;
+  32              		.loc 1 11 5 is_stmt 1
+  33 0024 638A0700 		beqz	a5,.L5
+  34              	.L3:
+  12:src/Scheduler.cpp ****     elem->next = nullptr;
+  35              		.loc 1 12 5
+  36              		.loc 1 12 16 is_stmt 0
+  37 0028 23340500 		sd	zero,8(a0)
+  13:src/Scheduler.cpp ****     return elem;
+  38              		.loc 1 13 5 is_stmt 1
+  39              	.LVL1:
+  40              	.L1:
+  14:src/Scheduler.cpp **** }
+  41              		.loc 1 14 1 is_stmt 0
+  42 002c 03348100 		ld	s0,8(sp)
+GAS LISTING /tmp/ccVyCUB5.s 			page 2
+
+
+  43              		.cfi_remember_state
+  44              		.cfi_restore 8
+  45              		.cfi_def_cfa 2, 16
+  46 0030 13010101 		addi	sp,sp,16
+  47              		.cfi_def_cfa_offset 0
+  48 0034 67800000 		jr	ra
+  49              	.LVL2:
+  50              	.L5:
+  51              		.cfi_restore_state
+  11:src/Scheduler.cpp ****     elem->next = nullptr;
+  52              		.loc 1 11 15 is_stmt 1 discriminator 1
+  11:src/Scheduler.cpp ****     elem->next = nullptr;
+  53              		.loc 1 11 20 is_stmt 0 discriminator 1
+  54 0038 97070000 		sd	zero,.LANCHOR0+8,a5
+  54      23B00700 
+  55 0040 6FF09FFE 		j	.L3
+  56              		.cfi_endproc
+  57              	.LFE14:
+  59              		.align	2
+  60              		.globl	_ZN9Scheduler3putEP13SchedulerNode
+  62              	_ZN9Scheduler3putEP13SchedulerNode:
+  63              	.LFB15:
+  15:src/Scheduler.cpp **** void Scheduler::put(SchedulerNode *schedulerNode) {
+  64              		.loc 1 15 51 is_stmt 1
+  65              		.cfi_startproc
+  66              	.LVL3:
+  67 0044 130101FF 		addi	sp,sp,-16
+  68              		.cfi_def_cfa_offset 16
+  69 0048 23348100 		sd	s0,8(sp)
+  70              		.cfi_offset 8, -8
+  71 004c 13040101 		addi	s0,sp,16
+  72              		.cfi_def_cfa 8, 0
+  16:src/Scheduler.cpp **** 
+  17:src/Scheduler.cpp ****     if(tail){
+  73              		.loc 1 17 5
+  74              		.loc 1 17 12 is_stmt 0
+  75 0050 97070000 		ld	a5,.LANCHOR0+8
+  75      83B70700 
+  76              		.loc 1 17 5
+  77 0058 638E0700 		beqz	a5,.L7
+  18:src/Scheduler.cpp ****         tail->next = schedulerNode;
+  78              		.loc 1 18 9 is_stmt 1
+  79              		.loc 1 18 20 is_stmt 0
+  80 005c 23B4A700 		sd	a0,8(a5)
+  19:src/Scheduler.cpp ****         tail = schedulerNode;
+  81              		.loc 1 19 9 is_stmt 1
+  82              		.loc 1 19 14 is_stmt 0
+  83 0060 97070000 		sd	a0,.LANCHOR0+8,a5
+  83      23B0A700 
+  84              	.L6:
+  20:src/Scheduler.cpp ****     }else{
+  21:src/Scheduler.cpp ****         head = tail = schedulerNode;
+  22:src/Scheduler.cpp ****     }
+  23:src/Scheduler.cpp **** }
+  85              		.loc 1 23 1
+  86 0068 03348100 		ld	s0,8(sp)
+  87              		.cfi_remember_state
+GAS LISTING /tmp/ccVyCUB5.s 			page 3
+
+
+  88              		.cfi_restore 8
+  89              		.cfi_def_cfa 2, 16
+  90 006c 13010101 		addi	sp,sp,16
+  91              		.cfi_def_cfa_offset 0
+  92 0070 67800000 		jr	ra
+  93              	.L7:
+  94              		.cfi_restore_state
+  21:src/Scheduler.cpp ****     }
+  95              		.loc 1 21 9 is_stmt 1
+  21:src/Scheduler.cpp ****     }
+  96              		.loc 1 21 21 is_stmt 0
+  97 0074 97070000 		lla	a5,.LANCHOR0
+  97      93870700 
+  98 007c 23B4A700 		sd	a0,8(a5)
+  21:src/Scheduler.cpp ****     }
+  99              		.loc 1 21 14
+ 100 0080 23B0A700 		sd	a0,0(a5)
+ 101              		.loc 1 23 1
+ 102 0084 6FF05FFE 		j	.L6
+ 103              		.cfi_endproc
+ 104              	.LFE15:
+ 106              		.globl	_ZN9Scheduler4tailE
+ 107              		.globl	_ZN9Scheduler4headE
+ 108              		.bss
+ 109              		.align	3
+ 110              		.set	.LANCHOR0,. + 0
+ 113              	_ZN9Scheduler4headE:
+ 114 0000 00000000 		.zero	8
+ 114      00000000 
+ 117              	_ZN9Scheduler4tailE:
+ 118 0008 00000000 		.zero	8
+ 118      00000000 
+ 119              		.text
+ 120              	.Letext0:
+ 121              		.file 2 "src/../h/../lib/hw.h"
+ 122              		.file 3 "src/../h/SchedulerNode.hpp"
+ 123              		.file 4 "src/../h/Scheduler.hpp"
+GAS LISTING /tmp/ccVyCUB5.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Scheduler.cpp
+     /tmp/ccVyCUB5.s:9      .text:0000000000000000 _ZN9Scheduler3getEv
+     /tmp/ccVyCUB5.s:13     .text:0000000000000000 .L0 
+     /tmp/ccVyCUB5.s:14     .text:0000000000000000 .L0 
+     /tmp/ccVyCUB5.s:15     .text:0000000000000004 .L0 
+     /tmp/ccVyCUB5.s:17     .text:0000000000000008 .L0 
+     /tmp/ccVyCUB5.s:19     .text:000000000000000c .L0 
+     /tmp/ccVyCUB5.s:21     .text:000000000000000c .L0 
+     /tmp/ccVyCUB5.s:22     .text:000000000000000c .L0 
+     /tmp/ccVyCUB5.s:24     .text:0000000000000014 .L0 
+     /tmp/ccVyCUB5.s:27     .text:0000000000000018 .L0 
+     /tmp/ccVyCUB5.s:28     .text:0000000000000018 .L0 
+     /tmp/ccVyCUB5.s:29     .text:0000000000000018 .L0 
+     /tmp/ccVyCUB5.s:31     .text:000000000000001c .L0 
+     /tmp/ccVyCUB5.s:33     .text:0000000000000024 .L0 
+     /tmp/ccVyCUB5.s:36     .text:0000000000000028 .L0 
+     /tmp/ccVyCUB5.s:37     .text:0000000000000028 .L0 
+     /tmp/ccVyCUB5.s:41     .text:000000000000002c .L0 
+     /tmp/ccVyCUB5.s:42     .text:000000000000002c .L0 
+     /tmp/ccVyCUB5.s:43     .text:0000000000000030 .L0 
+     /tmp/ccVyCUB5.s:44     .text:0000000000000030 .L0 
+     /tmp/ccVyCUB5.s:45     .text:0000000000000030 .L0 
+     /tmp/ccVyCUB5.s:47     .text:0000000000000034 .L0 
+     /tmp/ccVyCUB5.s:51     .text:0000000000000038 .L0 
+     /tmp/ccVyCUB5.s:53     .text:0000000000000038 .L0 
+     /tmp/ccVyCUB5.s:54     .text:0000000000000038 .L0 
+     /tmp/ccVyCUB5.s:56     .text:0000000000000044 .L0 
+     /tmp/ccVyCUB5.s:62     .text:0000000000000044 _ZN9Scheduler3putEP13SchedulerNode
+     /tmp/ccVyCUB5.s:65     .text:0000000000000044 .L0 
+     /tmp/ccVyCUB5.s:67     .text:0000000000000044 .L0 
+     /tmp/ccVyCUB5.s:68     .text:0000000000000048 .L0 
+     /tmp/ccVyCUB5.s:70     .text:000000000000004c .L0 
+     /tmp/ccVyCUB5.s:72     .text:0000000000000050 .L0 
+     /tmp/ccVyCUB5.s:74     .text:0000000000000050 .L0 
+     /tmp/ccVyCUB5.s:75     .text:0000000000000050 .L0 
+     /tmp/ccVyCUB5.s:77     .text:0000000000000058 .L0 
+     /tmp/ccVyCUB5.s:79     .text:000000000000005c .L0 
+     /tmp/ccVyCUB5.s:80     .text:000000000000005c .L0 
+     /tmp/ccVyCUB5.s:82     .text:0000000000000060 .L0 
+     /tmp/ccVyCUB5.s:83     .text:0000000000000060 .L0 
+     /tmp/ccVyCUB5.s:86     .text:0000000000000068 .L0 
+     /tmp/ccVyCUB5.s:87     .text:000000000000006c .L0 
+     /tmp/ccVyCUB5.s:88     .text:000000000000006c .L0 
+     /tmp/ccVyCUB5.s:89     .text:000000000000006c .L0 
+     /tmp/ccVyCUB5.s:91     .text:0000000000000070 .L0 
+     /tmp/ccVyCUB5.s:94     .text:0000000000000074 .L0 
+     /tmp/ccVyCUB5.s:96     .text:0000000000000074 .L0 
+     /tmp/ccVyCUB5.s:97     .text:0000000000000074 .L0 
+     /tmp/ccVyCUB5.s:100    .text:0000000000000080 .L0 
+     /tmp/ccVyCUB5.s:102    .text:0000000000000084 .L0 
+     /tmp/ccVyCUB5.s:103    .text:0000000000000088 .L0 
+     /tmp/ccVyCUB5.s:117    .bss:0000000000000008 _ZN9Scheduler4tailE
+     /tmp/ccVyCUB5.s:113    .bss:0000000000000000 _ZN9Scheduler4headE
+     /tmp/ccVyCUB5.s:110    .bss:0000000000000000 .LANCHOR0
+     /tmp/ccVyCUB5.s:124    .text:0000000000000088 .L0 
+     /tmp/ccVyCUB5.s:22     .text:000000000000000c .L0 
+GAS LISTING /tmp/ccVyCUB5.s 			page 5
+
+
+     /tmp/ccVyCUB5.s:31     .text:000000000000001c .L0 
+     /tmp/ccVyCUB5.s:54     .text:0000000000000038 .L0 
+     /tmp/ccVyCUB5.s:75     .text:0000000000000050 .L0 
+     /tmp/ccVyCUB5.s:83     .text:0000000000000060 .L0 
+     /tmp/ccVyCUB5.s:97     .text:0000000000000074 .L0 
+     /tmp/ccVyCUB5.s:40     .text:000000000000002c .L1
+     /tmp/ccVyCUB5.s:50     .text:0000000000000038 .L5
+     /tmp/ccVyCUB5.s:34     .text:0000000000000028 .L3
+     /tmp/ccVyCUB5.s:93     .text:0000000000000074 .L7
+     /tmp/ccVyCUB5.s:84     .text:0000000000000068 .L6
+     /tmp/ccVyCUB5.s:391    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccVyCUB5.s:846    .debug_str:000000000000014a .LASF25
+     /tmp/ccVyCUB5.s:852    .debug_str:0000000000000218 .LASF26
+     /tmp/ccVyCUB5.s:862    .debug_str:000000000000026d .LASF27
+     /tmp/ccVyCUB5.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccVyCUB5.s:120    .text:0000000000000088 .Letext0
+     /tmp/ccVyCUB5.s:802    .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccVyCUB5.s:854    .debug_str:000000000000022a .LASF0
+     /tmp/ccVyCUB5.s:838    .debug_str:00000000000000ea .LASF1
+     /tmp/ccVyCUB5.s:834    .debug_str:00000000000000ca .LASF2
+     /tmp/ccVyCUB5.s:816    .debug_str:0000000000000055 .LASF4
+     /tmp/ccVyCUB5.s:836    .debug_str:00000000000000d8 .LASF3
+     /tmp/ccVyCUB5.s:806    .debug_str:0000000000000013 .LASF5
+     /tmp/ccVyCUB5.s:804    .debug_str:0000000000000000 .LASF6
+     /tmp/ccVyCUB5.s:828    .debug_str:00000000000000a3 .LASF7
+     /tmp/ccVyCUB5.s:858    .debug_str:0000000000000247 .LASF8
+     /tmp/ccVyCUB5.s:814    .debug_str:0000000000000047 .LASF9
+     /tmp/ccVyCUB5.s:870    .debug_str:00000000000002ae .LASF10
+     /tmp/ccVyCUB5.s:832    .debug_str:00000000000000bb .LASF11
+     /tmp/ccVyCUB5.s:868    .debug_str:000000000000029e .LASF12
+     /tmp/ccVyCUB5.s:856    .debug_str:0000000000000237 .LASF13
+     /tmp/ccVyCUB5.s:842    .debug_str:0000000000000120 .LASF14
+     /tmp/ccVyCUB5.s:822    .debug_str:0000000000000075 .LASF15
+     /tmp/ccVyCUB5.s:860    .debug_str:0000000000000257 .LASF16
+     /tmp/ccVyCUB5.s:818    .debug_str:000000000000005c .LASF17
+     /tmp/ccVyCUB5.s:824    .debug_str:000000000000008b .LASF20
+     /tmp/ccVyCUB5.s:830    .debug_str:00000000000000b6 .LASF18
+     /tmp/ccVyCUB5.s:808    .debug_str:000000000000001a .LASF19
+     /tmp/ccVyCUB5.s:844    .debug_str:000000000000012c .LASF28
+     /tmp/ccVyCUB5.s:826    .debug_str:0000000000000099 .LASF21
+     /tmp/ccVyCUB5.s:850    .debug_str:0000000000000213 .LASF22
+     /tmp/ccVyCUB5.s:866    .debug_str:0000000000000299 .LASF23
+     /tmp/ccVyCUB5.s:812    .debug_str:0000000000000033 .LASF29
+     /tmp/ccVyCUB5.s:840    .debug_str:00000000000000fd .LASF30
+     /tmp/ccVyCUB5.s:810    .debug_str:000000000000001f .LASF31
+     /tmp/ccVyCUB5.s:820    .debug_str:0000000000000061 .LASF32
+     /tmp/ccVyCUB5.s:63     .text:0000000000000044 .LFB15
+     /tmp/ccVyCUB5.s:104    .text:0000000000000088 .LFE15
+     /tmp/ccVyCUB5.s:864    .debug_str:000000000000028b .LASF33
+     /tmp/ccVyCUB5.s:10     .text:0000000000000000 .LFB14
+     /tmp/ccVyCUB5.s:57     .text:0000000000000044 .LFE14
+     /tmp/ccVyCUB5.s:848    .debug_str:000000000000020e .LASF24
+     /tmp/ccVyCUB5.s:778    .debug_loc:0000000000000000 .LLST0
+     /tmp/ccVyCUB5.s:26     .text:0000000000000018 .LVL0
+     /tmp/ccVyCUB5.s:39     .text:000000000000002c .LVL1
+     /tmp/ccVyCUB5.s:49     .text:0000000000000038 .LVL2
+     /tmp/ccVyCUB5.s:125    .debug_info:0000000000000000 .Ldebug_info0
+GAS LISTING /tmp/ccVyCUB5.s 			page 6
+
+
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,1169 @@
+GAS LISTING /tmp/ccH1FaDF.s 			page 1
+
+
+   1              		.file	"SemaphoreBase.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              		.align	2
+   7              		.globl	_ZN13SemaphoreBaseC2Ei
+   9              	_ZN13SemaphoreBaseC2Ei:
+  10              	.LFB22:
+  11              		.file 1 "src/SemaphoreBase.cpp"
+   1:src/SemaphoreBase.cpp **** //
+   2:src/SemaphoreBase.cpp **** // Created by os on 5/20/22.
+   3:src/SemaphoreBase.cpp **** //
+   4:src/SemaphoreBase.cpp **** 
+   5:src/SemaphoreBase.cpp **** #include "../h/SemaphoreBase.hpp"
+   6:src/SemaphoreBase.cpp **** #include "../h/Scheduler.hpp"
+   7:src/SemaphoreBase.cpp **** #include "../h/TCB.hpp"
+   8:src/SemaphoreBase.cpp **** 
+   9:src/SemaphoreBase.cpp **** SemaphoreBase::SemaphoreBase(int v):val(v), head(nullptr), tail(nullptr){
+  12              		.loc 1 9 1
+  13              		.cfi_startproc
+  14              	.LVL0:
+  15 0000 130101FF 		addi	sp,sp,-16
+  16              		.cfi_def_cfa_offset 16
+  17 0004 23348100 		sd	s0,8(sp)
+  18              		.cfi_offset 8, -8
+  19 0008 13040101 		addi	s0,sp,16
+  20              		.cfi_def_cfa 8, 0
+  21              	.LBB6:
+  22              		.loc 1 9 72 is_stmt 0
+  23 000c 23200500 		sw	zero,0(a0)
+  24 0010 2322B500 		sw	a1,4(a0)
+  25 0014 23340500 		sd	zero,8(a0)
+  26 0018 23380500 		sd	zero,16(a0)
+  27              	.LBE6:
+  10:src/SemaphoreBase.cpp **** 
+  11:src/SemaphoreBase.cpp **** }
+  28              		.loc 1 11 1
+  29 001c 03348100 		ld	s0,8(sp)
+  30              		.cfi_restore 8
+  31              		.cfi_def_cfa 2, 16
+  32 0020 13010101 		addi	sp,sp,16
+  33              		.cfi_def_cfa_offset 0
+  34 0024 67800000 		jr	ra
+  35              		.cfi_endproc
+  36              	.LFE22:
+  38              		.globl	_ZN13SemaphoreBaseC1Ei
+  39              		.set	_ZN13SemaphoreBaseC1Ei,_ZN13SemaphoreBaseC2Ei
+  40              		.align	2
+  41              		.globl	_ZN13SemaphoreBase48contextSwitchWithoutSavingRunningNodeInSchedulerEv
+  43              	_ZN13SemaphoreBase48contextSwitchWithoutSavingRunningNodeInSchedulerEv:
+  44              	.LFB24:
+  12:src/SemaphoreBase.cpp **** 
+  13:src/SemaphoreBase.cpp **** void SemaphoreBase::contextSwitchWithoutSavingRunningNodeInScheduler(){
+  45              		.loc 1 13 71 is_stmt 1
+  46              		.cfi_startproc
+  47 0028 130101FE 		addi	sp,sp,-32
+GAS LISTING /tmp/ccH1FaDF.s 			page 2
+
+
+  48              		.cfi_def_cfa_offset 32
+  49 002c 233C1100 		sd	ra,24(sp)
+  50 0030 23388100 		sd	s0,16(sp)
+  51 0034 23349100 		sd	s1,8(sp)
+  52 0038 23302101 		sd	s2,0(sp)
+  53              		.cfi_offset 1, -8
+  54              		.cfi_offset 8, -16
+  55              		.cfi_offset 9, -24
+  56              		.cfi_offset 18, -32
+  57 003c 13040102 		addi	s0,sp,32
+  58              		.cfi_def_cfa 8, 0
+  14:src/SemaphoreBase.cpp ****     pushRegisters();
+  59              		.loc 1 14 5
+  60              		.loc 1 14 18 is_stmt 0
+  61 0040 97000000 		call	_ZN13SemaphoreBase13pushRegistersEv@plt
+  61      E7800000 
+  62              	.LVL1:
+  15:src/SemaphoreBase.cpp **** 
+  16:src/SemaphoreBase.cpp ****     TCB* old = TCB::running;
+  63              		.loc 1 16 5 is_stmt 1
+  64              		.loc 1 16 10 is_stmt 0
+  65 0048 97040000 		la	s1,_ZN3TCB7runningE
+  65      83B40400 
+  66 0050 03B90400 		ld	s2,0(s1)
+  67              	.LVL2:
+  17:src/SemaphoreBase.cpp ****     TCB::numberOfActiveThreads--;
+  68              		.loc 1 17 5 is_stmt 1
+  69              		.loc 1 17 31 is_stmt 0
+  70 0054 17070000 		la	a4,_ZN3TCB21numberOfActiveThreadsE
+  70      03370700 
+  71 005c 83370700 		ld	a5,0(a4)
+  72 0060 9387F7FF 		addi	a5,a5,-1
+  73 0064 2330F700 		sd	a5,0(a4)
+  18:src/SemaphoreBase.cpp **** 
+  19:src/SemaphoreBase.cpp ****     TCB::running = Scheduler::get()->data;
+  74              		.loc 1 19 5 is_stmt 1
+  75              		.loc 1 19 34 is_stmt 0
+  76 0068 97000000 		call	_ZN9Scheduler3getEv@plt
+  76      E7800000 
+  77              	.LVL3:
+  78              		.loc 1 19 38
+  79 0070 83350500 		ld	a1,0(a0)
+  80              		.loc 1 19 18
+  81 0074 23B0B400 		sd	a1,0(s1)
+  20:src/SemaphoreBase.cpp ****     TCB::contextSwitch(&old->context, &TCB::running->context);
+  82              		.loc 1 20 5 is_stmt 1
+  83              		.loc 1 20 23 is_stmt 0
+  84 0078 93850501 		addi	a1,a1,16
+  85 007c 13050901 		addi	a0,s2,16
+  86 0080 97000000 		call	_ZN3TCB13contextSwitchEPNS_7ContextES1_@plt
+  86      E7800000 
+  87              	.LVL4:
+  21:src/SemaphoreBase.cpp **** 
+  22:src/SemaphoreBase.cpp ****     popRegisters();
+  88              		.loc 1 22 5 is_stmt 1
+  89              		.loc 1 22 17 is_stmt 0
+  90 0088 97000000 		call	_ZN13SemaphoreBase12popRegistersEv@plt
+GAS LISTING /tmp/ccH1FaDF.s 			page 3
+
+
+  90      E7800000 
+  91              	.LVL5:
+  23:src/SemaphoreBase.cpp **** }
+  92              		.loc 1 23 1
+  93 0090 83308101 		ld	ra,24(sp)
+  94              		.cfi_restore 1
+  95 0094 03340101 		ld	s0,16(sp)
+  96              		.cfi_restore 8
+  97              		.cfi_def_cfa 2, 32
+  98 0098 83348100 		ld	s1,8(sp)
+  99              		.cfi_restore 9
+ 100 009c 03390100 		ld	s2,0(sp)
+ 101              		.cfi_restore 18
+ 102              	.LVL6:
+ 103 00a0 13010102 		addi	sp,sp,32
+ 104              		.cfi_def_cfa_offset 0
+ 105 00a4 67800000 		jr	ra
+ 106              		.cfi_endproc
+ 107              	.LFE24:
+ 109              		.align	2
+ 110              		.globl	_ZN13SemaphoreBase5blockEv
+ 112              	_ZN13SemaphoreBase5blockEv:
+ 113              	.LFB28:
+  24:src/SemaphoreBase.cpp **** 
+  25:src/SemaphoreBase.cpp **** int SemaphoreBase::close() {
+  26:src/SemaphoreBase.cpp ****     if(closed)return -2;
+  27:src/SemaphoreBase.cpp ****     closed = 1;
+  28:src/SemaphoreBase.cpp **** 
+  29:src/SemaphoreBase.cpp ****     if(!head)return 0;
+  30:src/SemaphoreBase.cpp ****     while(head) {
+  31:src/SemaphoreBase.cpp ****         head->waitingWhileClosedSem = 1;
+  32:src/SemaphoreBase.cpp ****         int status = unblock();
+  33:src/SemaphoreBase.cpp ****         if(status<0)return status;
+  34:src/SemaphoreBase.cpp ****     }
+  35:src/SemaphoreBase.cpp **** 
+  36:src/SemaphoreBase.cpp ****     return 0;
+  37:src/SemaphoreBase.cpp **** }
+  38:src/SemaphoreBase.cpp **** 
+  39:src/SemaphoreBase.cpp **** int SemaphoreBase::wait() {
+  40:src/SemaphoreBase.cpp ****     if(--val < 0) {
+  41:src/SemaphoreBase.cpp ****         int status = block();
+  42:src/SemaphoreBase.cpp ****         return status;
+  43:src/SemaphoreBase.cpp ****     }
+  44:src/SemaphoreBase.cpp ****     return 0;
+  45:src/SemaphoreBase.cpp **** }
+  46:src/SemaphoreBase.cpp **** 
+  47:src/SemaphoreBase.cpp **** int SemaphoreBase::signal() {
+  48:src/SemaphoreBase.cpp ****     if(++val <= 0) {
+  49:src/SemaphoreBase.cpp ****         int status = unblock();
+  50:src/SemaphoreBase.cpp ****         return status;
+  51:src/SemaphoreBase.cpp ****     }
+  52:src/SemaphoreBase.cpp ****     return 0;
+  53:src/SemaphoreBase.cpp **** }
+  54:src/SemaphoreBase.cpp **** 
+  55:src/SemaphoreBase.cpp **** int SemaphoreBase::block(){
+ 114              		.loc 1 55 27 is_stmt 1
+ 115              		.cfi_startproc
+GAS LISTING /tmp/ccH1FaDF.s 			page 4
+
+
+ 116              	.LVL7:
+ 117 00a8 130101FD 		addi	sp,sp,-48
+ 118              		.cfi_def_cfa_offset 48
+ 119 00ac 23341102 		sd	ra,40(sp)
+ 120 00b0 23308102 		sd	s0,32(sp)
+ 121 00b4 233C9100 		sd	s1,24(sp)
+ 122 00b8 23382101 		sd	s2,16(sp)
+ 123 00bc 23343101 		sd	s3,8(sp)
+ 124              		.cfi_offset 1, -8
+ 125              		.cfi_offset 8, -16
+ 126              		.cfi_offset 9, -24
+ 127              		.cfi_offset 18, -32
+ 128              		.cfi_offset 19, -40
+ 129 00c0 13040103 		addi	s0,sp,48
+ 130              		.cfi_def_cfa 8, 0
+ 131 00c4 13090500 		mv	s2,a0
+  56:src/SemaphoreBase.cpp ****     TCB* old = TCB::running;
+ 132              		.loc 1 56 5
+ 133              		.loc 1 56 10 is_stmt 0
+ 134 00c8 97070000 		la	a5,_ZN3TCB7runningE
+ 134      83B70700 
+ 135 00d0 83B90700 		ld	s3,0(a5)
+ 136              	.LVL8:
+  57:src/SemaphoreBase.cpp ****     SemaphoreNode* node = SemaphoreNode::createNode(old, nullptr);//new SemaphoreNode(old, nullptr)
+ 137              		.loc 1 57 5 is_stmt 1
+ 138              	.LBB7:
+ 139              	.LBB8:
+ 140              		.file 2 "src/../h/SemaphoreNode.hpp"
+   1:src/../h/SemaphoreNode.hpp **** #ifndef SEMAPHORENODE_HPP
+   2:src/../h/SemaphoreNode.hpp **** #define SEMAPHORENODE_HPP
+   3:src/../h/SemaphoreNode.hpp **** 
+   4:src/../h/SemaphoreNode.hpp **** #include "kernel_functions.hpp"
+   5:src/../h/SemaphoreNode.hpp **** 
+   6:src/../h/SemaphoreNode.hpp **** class TCB;
+   7:src/../h/SemaphoreNode.hpp **** class SemaphoreNode{
+   8:src/../h/SemaphoreNode.hpp ****     TCB* data;
+   9:src/../h/SemaphoreNode.hpp ****     SemaphoreNode* next;
+  10:src/../h/SemaphoreNode.hpp ****     int waitingWhileClosedSem = 0; // if Node is waiting and then semaphore is closed -> 1, after t
+  11:src/../h/SemaphoreNode.hpp ****     //SemaphoreNode(TCB* data, SemaphoreNode* next):data(data), next(next){}
+  12:src/../h/SemaphoreNode.hpp **** 
+  13:src/../h/SemaphoreNode.hpp ****     static SemaphoreNode* createNode(TCB* tcb, SemaphoreNode* nxt){
+  14:src/../h/SemaphoreNode.hpp ****         SemaphoreNode* p = (SemaphoreNode*) kmem_alloc(sizeof(SemaphoreNode));
+ 141              		.loc 2 14 9
+ 142              		.loc 2 14 55 is_stmt 0
+ 143 00d4 13058001 		li	a0,24
+ 144              	.LVL9:
+ 145 00d8 97000000 		call	_Z10kmem_allocm@plt
+ 145      E7800000 
+ 146              	.LVL10:
+ 147 00e0 93040500 		mv	s1,a0
+ 148              	.LVL11:
+  15:src/../h/SemaphoreNode.hpp ****         p->data = tcb;
+ 149              		.loc 2 15 9 is_stmt 1
+ 150              		.loc 2 15 17 is_stmt 0
+ 151 00e4 23303501 		sd	s3,0(a0)
+  16:src/../h/SemaphoreNode.hpp ****         p->next = nxt;
+ 152              		.loc 2 16 9 is_stmt 1
+GAS LISTING /tmp/ccH1FaDF.s 			page 5
+
+
+ 153              		.loc 2 16 17 is_stmt 0
+ 154 00e8 23340500 		sd	zero,8(a0)
+  17:src/../h/SemaphoreNode.hpp ****         return p;
+ 155              		.loc 2 17 9 is_stmt 1
+ 156              	.LVL12:
+ 157              	.LBE8:
+ 158              	.LBE7:
+  58:src/SemaphoreBase.cpp ****     if(tail){
+ 159              		.loc 1 58 5
+ 160              		.loc 1 58 8 is_stmt 0
+ 161 00ec 83370901 		ld	a5,16(s2)
+ 162              		.loc 1 58 5
+ 163 00f0 63880704 		beqz	a5,.L6
+  59:src/SemaphoreBase.cpp ****         tail->next = node;
+ 164              		.loc 1 59 9 is_stmt 1
+ 165              		.loc 1 59 20 is_stmt 0
+ 166 00f4 23B4A700 		sd	a0,8(a5)
+  60:src/SemaphoreBase.cpp ****         tail = node;
+ 167              		.loc 1 60 9 is_stmt 1
+ 168              		.loc 1 60 14 is_stmt 0
+ 169 00f8 2338A900 		sd	a0,16(s2)
+ 170              	.L7:
+  61:src/SemaphoreBase.cpp ****     }else{
+  62:src/SemaphoreBase.cpp ****         head = tail = node;
+  63:src/SemaphoreBase.cpp ****     }
+  64:src/SemaphoreBase.cpp **** 
+  65:src/SemaphoreBase.cpp ****     contextSwitchWithoutSavingRunningNodeInScheduler();
+ 171              		.loc 1 65 5 is_stmt 1
+ 172              		.loc 1 65 53 is_stmt 0
+ 173 00fc 97000000 		call	_ZN13SemaphoreBase48contextSwitchWithoutSavingRunningNodeInSchedulerEv
+ 173      E7800000 
+ 174              	.LVL13:
+  66:src/SemaphoreBase.cpp ****     int status = node->waitingWhileClosedSem;
+ 175              		.loc 1 66 5 is_stmt 1
+ 176              		.loc 1 66 9 is_stmt 0
+ 177 0104 03A90401 		lw	s2,16(s1)
+ 178              	.LVL14:
+  67:src/SemaphoreBase.cpp ****     node->data = nullptr;
+ 179              		.loc 1 67 5 is_stmt 1
+ 180              		.loc 1 67 16 is_stmt 0
+ 181 0108 23B00400 		sd	zero,0(s1)
+  68:src/SemaphoreBase.cpp ****     node->next = nullptr;
+ 182              		.loc 1 68 5 is_stmt 1
+ 183              		.loc 1 68 16 is_stmt 0
+ 184 010c 23B40400 		sd	zero,8(s1)
+  69:src/SemaphoreBase.cpp ****     SemaphoreNode::deleteNode(node);
+ 185              		.loc 1 69 5 is_stmt 1
+ 186              	.LVL15:
+ 187              	.LBB9:
+ 188              	.LBB10:
+  18:src/../h/SemaphoreNode.hpp ****     }
+  19:src/../h/SemaphoreNode.hpp **** 
+  20:src/../h/SemaphoreNode.hpp ****     static void deleteNode(SemaphoreNode* node){
+  21:src/../h/SemaphoreNode.hpp ****         node->data = nullptr;
+ 189              		.loc 2 21 9
+  22:src/../h/SemaphoreNode.hpp ****         node->next = nullptr;
+ 190              		.loc 2 22 9
+GAS LISTING /tmp/ccH1FaDF.s 			page 6
+
+
+  23:src/../h/SemaphoreNode.hpp ****         kmem_free(node);
+ 191              		.loc 2 23 9
+ 192              		.loc 2 23 18 is_stmt 0
+ 193 0110 13850400 		mv	a0,s1
+ 194 0114 97000000 		call	_Z9kmem_freePv@plt
+ 194      E7800000 
+ 195              	.LVL16:
+ 196              	.LBE10:
+ 197              	.LBE9:
+  70:src/SemaphoreBase.cpp **** 
+  71:src/SemaphoreBase.cpp ****     if(status == 0)return 0;
+ 198              		.loc 1 71 5 is_stmt 1
+ 199 011c 63180902 		bnez	s2,.L10
+ 200              	.LVL17:
+ 201              	.L8:
+  72:src/SemaphoreBase.cpp ****     return -1;
+  73:src/SemaphoreBase.cpp **** }
+ 202              		.loc 1 73 1 is_stmt 0
+ 203 0120 13050900 		mv	a0,s2
+ 204 0124 83308102 		ld	ra,40(sp)
+ 205              		.cfi_remember_state
+ 206              		.cfi_restore 1
+ 207 0128 03340102 		ld	s0,32(sp)
+ 208              		.cfi_restore 8
+ 209              		.cfi_def_cfa 2, 48
+ 210 012c 83348101 		ld	s1,24(sp)
+ 211              		.cfi_restore 9
+ 212              	.LVL18:
+ 213 0130 03390101 		ld	s2,16(sp)
+ 214              		.cfi_restore 18
+ 215 0134 83398100 		ld	s3,8(sp)
+ 216              		.cfi_restore 19
+ 217              	.LVL19:
+ 218 0138 13010103 		addi	sp,sp,48
+ 219              		.cfi_def_cfa_offset 0
+ 220 013c 67800000 		jr	ra
+ 221              	.LVL20:
+ 222              	.L6:
+ 223              		.cfi_restore_state
+  62:src/SemaphoreBase.cpp ****     }
+ 224              		.loc 1 62 9 is_stmt 1
+  62:src/SemaphoreBase.cpp ****     }
+ 225              		.loc 1 62 21 is_stmt 0
+ 226 0140 2338A900 		sd	a0,16(s2)
+  62:src/SemaphoreBase.cpp ****     }
+ 227              		.loc 1 62 14
+ 228 0144 2334A900 		sd	a0,8(s2)
+ 229 0148 6FF05FFB 		j	.L7
+ 230              	.LVL21:
+ 231              	.L10:
+  72:src/SemaphoreBase.cpp ****     return -1;
+ 232              		.loc 1 72 13
+ 233 014c 1309F0FF 		li	s2,-1
+ 234              	.LVL22:
+ 235 0150 6FF01FFD 		j	.L8
+ 236              		.cfi_endproc
+ 237              	.LFE28:
+GAS LISTING /tmp/ccH1FaDF.s 			page 7
+
+
+ 239              		.align	2
+ 240              		.globl	_ZN13SemaphoreBase4waitEv
+ 242              	_ZN13SemaphoreBase4waitEv:
+ 243              	.LFB26:
+  39:src/SemaphoreBase.cpp ****     if(--val < 0) {
+ 244              		.loc 1 39 27 is_stmt 1
+ 245              		.cfi_startproc
+ 246              	.LVL23:
+  40:src/SemaphoreBase.cpp ****         int status = block();
+ 247              		.loc 1 40 5
+ 248              	.LBB11:
+  40:src/SemaphoreBase.cpp ****         int status = block();
+ 249              		.loc 1 40 10 is_stmt 0
+ 250 0154 83274500 		lw	a5,4(a0)
+  40:src/SemaphoreBase.cpp ****         int status = block();
+ 251              		.loc 1 40 8
+ 252 0158 9B87F7FF 		addiw	a5,a5,-1
+  40:src/SemaphoreBase.cpp ****         int status = block();
+ 253              		.loc 1 40 14
+ 254 015c 2322F500 		sw	a5,4(a0)
+  40:src/SemaphoreBase.cpp ****         int status = block();
+ 255              		.loc 1 40 5
+ 256 0160 13970702 		slli	a4,a5,32
+ 257 0164 63460700 		bltz	a4,.L18
+ 258              	.LBE11:
+  44:src/SemaphoreBase.cpp **** }
+ 259              		.loc 1 44 12
+ 260 0168 13050000 		li	a0,0
+ 261              	.LVL24:
+  45:src/SemaphoreBase.cpp **** 
+ 262              		.loc 1 45 1
+ 263 016c 67800000 		ret
+ 264              	.LVL25:
+ 265              	.L18:
+  39:src/SemaphoreBase.cpp ****     if(--val < 0) {
+ 266              		.loc 1 39 27
+ 267 0170 130101FF 		addi	sp,sp,-16
+ 268              		.cfi_def_cfa_offset 16
+ 269 0174 23341100 		sd	ra,8(sp)
+ 270 0178 23308100 		sd	s0,0(sp)
+ 271              		.cfi_offset 1, -8
+ 272              		.cfi_offset 8, -16
+ 273 017c 13040101 		addi	s0,sp,16
+ 274              		.cfi_def_cfa 8, 0
+ 275              	.LBB13:
+ 276              	.LBB12:
+  41:src/SemaphoreBase.cpp ****         return status;
+ 277              		.loc 1 41 9 is_stmt 1
+  41:src/SemaphoreBase.cpp ****         return status;
+ 278              		.loc 1 41 27 is_stmt 0
+ 279 0180 97000000 		call	_ZN13SemaphoreBase5blockEv
+ 279      E7800000 
+ 280              	.LVL26:
+  42:src/SemaphoreBase.cpp ****     }
+ 281              		.loc 1 42 9 is_stmt 1
+ 282              	.LBE12:
+ 283              	.LBE13:
+GAS LISTING /tmp/ccH1FaDF.s 			page 8
+
+
+  45:src/SemaphoreBase.cpp **** 
+ 284              		.loc 1 45 1 is_stmt 0
+ 285 0188 83308100 		ld	ra,8(sp)
+ 286              		.cfi_restore 1
+ 287 018c 03340100 		ld	s0,0(sp)
+ 288              		.cfi_restore 8
+ 289              		.cfi_def_cfa 2, 16
+ 290 0190 13010101 		addi	sp,sp,16
+ 291              		.cfi_def_cfa_offset 0
+ 292 0194 67800000 		jr	ra
+ 293              		.cfi_endproc
+ 294              	.LFE26:
+ 296              		.align	2
+ 297              		.globl	_ZN13SemaphoreBase7unblockEv
+ 299              	_ZN13SemaphoreBase7unblockEv:
+ 300              	.LFB29:
+  74:src/SemaphoreBase.cpp **** 
+  75:src/SemaphoreBase.cpp **** int SemaphoreBase::unblock(){
+ 301              		.loc 1 75 29 is_stmt 1
+ 302              		.cfi_startproc
+ 303              	.LVL27:
+  76:src/SemaphoreBase.cpp ****     if(!head)return -1;
+ 304              		.loc 1 76 5
+ 305              		.loc 1 76 9 is_stmt 0
+ 306 0198 83378500 		ld	a5,8(a0)
+ 307              		.loc 1 76 5
+ 308 019c 63860704 		beqz	a5,.L22
+  75:src/SemaphoreBase.cpp ****     if(!head)return -1;
+ 309              		.loc 1 75 29
+ 310 01a0 130101FF 		addi	sp,sp,-16
+ 311              		.cfi_def_cfa_offset 16
+ 312 01a4 23341100 		sd	ra,8(sp)
+ 313 01a8 23308100 		sd	s0,0(sp)
+ 314              		.cfi_offset 1, -8
+ 315              		.cfi_offset 8, -16
+ 316 01ac 13040101 		addi	s0,sp,16
+ 317              		.cfi_def_cfa 8, 0
+  77:src/SemaphoreBase.cpp **** 
+  78:src/SemaphoreBase.cpp ****     SemaphoreNode* elem = head;
+ 318              		.loc 1 78 5 is_stmt 1
+ 319              	.LVL28:
+  79:src/SemaphoreBase.cpp ****     head = head->next;
+ 320              		.loc 1 79 5
+ 321              		.loc 1 79 18 is_stmt 0
+ 322 01b0 03B78700 		ld	a4,8(a5)
+ 323              		.loc 1 79 10
+ 324 01b4 2334E500 		sd	a4,8(a0)
+  80:src/SemaphoreBase.cpp **** 
+  81:src/SemaphoreBase.cpp ****     if(!head) tail = nullptr;
+ 325              		.loc 1 81 5 is_stmt 1
+ 326 01b8 63040702 		beqz	a4,.L27
+ 327              	.L21:
+  82:src/SemaphoreBase.cpp **** 
+  83:src/SemaphoreBase.cpp ****     Scheduler::put(&elem->data->schedulerNode);
+ 328              		.loc 1 83 5
+ 329              		.loc 1 83 27 is_stmt 0
+ 330 01bc 03B50700 		ld	a0,0(a5)
+GAS LISTING /tmp/ccH1FaDF.s 			page 9
+
+
+ 331              	.LVL29:
+ 332              		.loc 1 83 19
+ 333 01c0 13058502 		addi	a0,a0,40
+ 334 01c4 97000000 		call	_ZN9Scheduler3putEP13SchedulerNode@plt
+ 334      E7800000 
+ 335              	.LVL30:
+  84:src/SemaphoreBase.cpp ****     return 0;
+ 336              		.loc 1 84 5 is_stmt 1
+ 337              		.loc 1 84 12 is_stmt 0
+ 338 01cc 13050000 		li	a0,0
+  85:src/SemaphoreBase.cpp **** }
+ 339              		.loc 1 85 1
+ 340 01d0 83308100 		ld	ra,8(sp)
+ 341              		.cfi_remember_state
+ 342              		.cfi_restore 1
+ 343 01d4 03340100 		ld	s0,0(sp)
+ 344              		.cfi_restore 8
+ 345              		.cfi_def_cfa 2, 16
+ 346 01d8 13010101 		addi	sp,sp,16
+ 347              		.cfi_def_cfa_offset 0
+ 348 01dc 67800000 		jr	ra
+ 349              	.LVL31:
+ 350              	.L27:
+ 351              		.cfi_restore_state
+  81:src/SemaphoreBase.cpp **** 
+ 352              		.loc 1 81 15 is_stmt 1 discriminator 1
+  81:src/SemaphoreBase.cpp **** 
+ 353              		.loc 1 81 20 is_stmt 0 discriminator 1
+ 354 01e0 23380500 		sd	zero,16(a0)
+ 355 01e4 6FF09FFD 		j	.L21
+ 356              	.LVL32:
+ 357              	.L22:
+ 358              		.cfi_def_cfa_register 2
+ 359              		.cfi_restore 1
+ 360              		.cfi_restore 8
+  76:src/SemaphoreBase.cpp **** 
+ 361              		.loc 1 76 22
+ 362 01e8 1305F0FF 		li	a0,-1
+ 363              	.LVL33:
+ 364              		.loc 1 85 1
+ 365 01ec 67800000 		ret
+ 366              		.cfi_endproc
+ 367              	.LFE29:
+ 369              		.align	2
+ 370              		.globl	_ZN13SemaphoreBase5closeEv
+ 372              	_ZN13SemaphoreBase5closeEv:
+ 373              	.LFB25:
+  25:src/SemaphoreBase.cpp ****     if(closed)return -2;
+ 374              		.loc 1 25 28 is_stmt 1
+ 375              		.cfi_startproc
+ 376              	.LVL34:
+ 377 01f0 130101FE 		addi	sp,sp,-32
+ 378              		.cfi_def_cfa_offset 32
+ 379 01f4 233C1100 		sd	ra,24(sp)
+ 380 01f8 23388100 		sd	s0,16(sp)
+ 381 01fc 23349100 		sd	s1,8(sp)
+ 382 0200 23302101 		sd	s2,0(sp)
+GAS LISTING /tmp/ccH1FaDF.s 			page 10
+
+
+ 383              		.cfi_offset 1, -8
+ 384              		.cfi_offset 8, -16
+ 385              		.cfi_offset 9, -24
+ 386              		.cfi_offset 18, -32
+ 387 0204 13040102 		addi	s0,sp,32
+ 388              		.cfi_def_cfa 8, 0
+  26:src/SemaphoreBase.cpp ****     closed = 1;
+ 389              		.loc 1 26 5
+  26:src/SemaphoreBase.cpp ****     closed = 1;
+ 390              		.loc 1 26 8 is_stmt 0
+ 391 0208 03290500 		lw	s2,0(a0)
+  26:src/SemaphoreBase.cpp ****     closed = 1;
+ 392              		.loc 1 26 5
+ 393 020c 631C0904 		bnez	s2,.L31
+ 394 0210 93040500 		mv	s1,a0
+  27:src/SemaphoreBase.cpp **** 
+ 395              		.loc 1 27 5 is_stmt 1
+  27:src/SemaphoreBase.cpp **** 
+ 396              		.loc 1 27 12 is_stmt 0
+ 397 0214 93071000 		li	a5,1
+ 398 0218 2320F500 		sw	a5,0(a0)
+  29:src/SemaphoreBase.cpp ****     while(head) {
+ 399              		.loc 1 29 5 is_stmt 1
+  29:src/SemaphoreBase.cpp ****     while(head) {
+ 400              		.loc 1 29 9 is_stmt 0
+ 401 021c 83378500 		ld	a5,8(a0)
+  29:src/SemaphoreBase.cpp ****     while(head) {
+ 402              		.loc 1 29 5
+ 403 0220 63840702 		beqz	a5,.L29
+ 404              	.LVL35:
+ 405              	.L30:
+  30:src/SemaphoreBase.cpp ****         head->waitingWhileClosedSem = 1;
+ 406              		.loc 1 30 5 is_stmt 1
+  30:src/SemaphoreBase.cpp ****         head->waitingWhileClosedSem = 1;
+ 407              		.loc 1 30 11
+ 408 0224 83B78400 		ld	a5,8(s1)
+ 409 0228 63800702 		beqz	a5,.L29
+ 410              	.LBB14:
+  31:src/SemaphoreBase.cpp ****         int status = unblock();
+ 411              		.loc 1 31 9
+  31:src/SemaphoreBase.cpp ****         int status = unblock();
+ 412              		.loc 1 31 37 is_stmt 0
+ 413 022c 13071000 		li	a4,1
+ 414 0230 23A8E700 		sw	a4,16(a5)
+  32:src/SemaphoreBase.cpp ****         if(status<0)return status;
+ 415              		.loc 1 32 9 is_stmt 1
+  32:src/SemaphoreBase.cpp ****         if(status<0)return status;
+ 416              		.loc 1 32 29 is_stmt 0
+ 417 0234 13850400 		mv	a0,s1
+ 418 0238 97000000 		call	_ZN13SemaphoreBase7unblockEv
+ 418      E7800000 
+ 419              	.LVL36:
+  33:src/SemaphoreBase.cpp ****     }
+ 420              		.loc 1 33 9 is_stmt 1
+ 421 0240 E35205FE 		bgez	a0,.L30
+  33:src/SemaphoreBase.cpp ****     }
+ 422              		.loc 1 33 28 is_stmt 0
+GAS LISTING /tmp/ccH1FaDF.s 			page 11
+
+
+ 423 0244 13090500 		mv	s2,a0
+ 424              	.LVL37:
+ 425              	.L29:
+ 426              	.LBE14:
+  37:src/SemaphoreBase.cpp **** 
+ 427              		.loc 1 37 1
+ 428 0248 13050900 		mv	a0,s2
+ 429 024c 83308101 		ld	ra,24(sp)
+ 430              		.cfi_remember_state
+ 431              		.cfi_restore 1
+ 432 0250 03340101 		ld	s0,16(sp)
+ 433              		.cfi_restore 8
+ 434              		.cfi_def_cfa 2, 32
+ 435 0254 83348100 		ld	s1,8(sp)
+ 436              		.cfi_restore 9
+ 437 0258 03390100 		ld	s2,0(sp)
+ 438              		.cfi_restore 18
+ 439 025c 13010102 		addi	sp,sp,32
+ 440              		.cfi_def_cfa_offset 0
+ 441 0260 67800000 		jr	ra
+ 442              	.LVL38:
+ 443              	.L31:
+ 444              		.cfi_restore_state
+  26:src/SemaphoreBase.cpp ****     closed = 1;
+ 445              		.loc 1 26 23
+ 446 0264 1309E0FF 		li	s2,-2
+ 447 0268 6FF01FFE 		j	.L29
+ 448              		.cfi_endproc
+ 449              	.LFE25:
+ 451              		.align	2
+ 452              		.globl	_ZN13SemaphoreBase6signalEv
+ 454              	_ZN13SemaphoreBase6signalEv:
+ 455              	.LFB27:
+  47:src/SemaphoreBase.cpp ****     if(++val <= 0) {
+ 456              		.loc 1 47 29 is_stmt 1
+ 457              		.cfi_startproc
+ 458              	.LVL39:
+  48:src/SemaphoreBase.cpp ****         int status = unblock();
+ 459              		.loc 1 48 5
+ 460              	.LBB15:
+  48:src/SemaphoreBase.cpp ****         int status = unblock();
+ 461              		.loc 1 48 10 is_stmt 0
+ 462 026c 83274500 		lw	a5,4(a0)
+  48:src/SemaphoreBase.cpp ****         int status = unblock();
+ 463              		.loc 1 48 8
+ 464 0270 9B871700 		addiw	a5,a5,1
+ 465 0274 1B870700 		sext.w	a4,a5
+  48:src/SemaphoreBase.cpp ****         int status = unblock();
+ 466              		.loc 1 48 14
+ 467 0278 2322F500 		sw	a5,4(a0)
+  48:src/SemaphoreBase.cpp ****         int status = unblock();
+ 468              		.loc 1 48 5
+ 469 027c 6356E000 		blez	a4,.L40
+ 470              	.LBE15:
+  52:src/SemaphoreBase.cpp **** }
+ 471              		.loc 1 52 12
+ 472 0280 13050000 		li	a0,0
+GAS LISTING /tmp/ccH1FaDF.s 			page 12
+
+
+ 473              	.LVL40:
+  53:src/SemaphoreBase.cpp **** 
+ 474              		.loc 1 53 1
+ 475 0284 67800000 		ret
+ 476              	.LVL41:
+ 477              	.L40:
+  47:src/SemaphoreBase.cpp ****     if(++val <= 0) {
+ 478              		.loc 1 47 29
+ 479 0288 130101FF 		addi	sp,sp,-16
+ 480              		.cfi_def_cfa_offset 16
+ 481 028c 23341100 		sd	ra,8(sp)
+ 482 0290 23308100 		sd	s0,0(sp)
+ 483              		.cfi_offset 1, -8
+ 484              		.cfi_offset 8, -16
+ 485 0294 13040101 		addi	s0,sp,16
+ 486              		.cfi_def_cfa 8, 0
+ 487              	.LBB17:
+ 488              	.LBB16:
+  49:src/SemaphoreBase.cpp ****         return status;
+ 489              		.loc 1 49 9 is_stmt 1
+  49:src/SemaphoreBase.cpp ****         return status;
+ 490              		.loc 1 49 29 is_stmt 0
+ 491 0298 97000000 		call	_ZN13SemaphoreBase7unblockEv
+ 491      E7800000 
+ 492              	.LVL42:
+  50:src/SemaphoreBase.cpp ****     }
+ 493              		.loc 1 50 9 is_stmt 1
+ 494              	.LBE16:
+ 495              	.LBE17:
+  53:src/SemaphoreBase.cpp **** 
+ 496              		.loc 1 53 1 is_stmt 0
+ 497 02a0 83308100 		ld	ra,8(sp)
+ 498              		.cfi_restore 1
+ 499 02a4 03340100 		ld	s0,0(sp)
+ 500              		.cfi_restore 8
+ 501              		.cfi_def_cfa 2, 16
+ 502 02a8 13010101 		addi	sp,sp,16
+ 503              		.cfi_def_cfa_offset 0
+ 504 02ac 67800000 		jr	ra
+ 505              		.cfi_endproc
+ 506              	.LFE27:
+ 508              	.Letext0:
+ 509              		.file 3 "src/../h/../lib/hw.h"
+ 510              		.file 4 "src/../h/TCB.hpp"
+ 511              		.file 5 "src/../h/SemaphoreBase.hpp"
+ 512              		.file 6 "src/../h/SchedulerNode.hpp"
+ 513              		.file 7 "src/../h/Scheduler.hpp"
+ 514              		.file 8 "src/../h/kernel_functions.hpp"
+GAS LISTING /tmp/ccH1FaDF.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 SemaphoreBase.cpp
+     /tmp/ccH1FaDF.s:9      .text:0000000000000000 _ZN13SemaphoreBaseC2Ei
+     /tmp/ccH1FaDF.s:13     .text:0000000000000000 .L0 
+     /tmp/ccH1FaDF.s:15     .text:0000000000000000 .L0 
+     /tmp/ccH1FaDF.s:16     .text:0000000000000004 .L0 
+     /tmp/ccH1FaDF.s:18     .text:0000000000000008 .L0 
+     /tmp/ccH1FaDF.s:20     .text:000000000000000c .L0 
+     /tmp/ccH1FaDF.s:23     .text:000000000000000c .L0 
+     /tmp/ccH1FaDF.s:29     .text:000000000000001c .L0 
+     /tmp/ccH1FaDF.s:30     .text:0000000000000020 .L0 
+     /tmp/ccH1FaDF.s:31     .text:0000000000000020 .L0 
+     /tmp/ccH1FaDF.s:33     .text:0000000000000024 .L0 
+     /tmp/ccH1FaDF.s:35     .text:0000000000000028 .L0 
+     /tmp/ccH1FaDF.s:9      .text:0000000000000000 _ZN13SemaphoreBaseC1Ei
+     /tmp/ccH1FaDF.s:43     .text:0000000000000028 _ZN13SemaphoreBase48contextSwitchWithoutSavingRunningNodeInSchedulerEv
+     /tmp/ccH1FaDF.s:46     .text:0000000000000028 .L0 
+     /tmp/ccH1FaDF.s:47     .text:0000000000000028 .L0 
+     /tmp/ccH1FaDF.s:48     .text:000000000000002c .L0 
+     /tmp/ccH1FaDF.s:53     .text:000000000000003c .L0 
+     /tmp/ccH1FaDF.s:54     .text:000000000000003c .L0 
+     /tmp/ccH1FaDF.s:55     .text:000000000000003c .L0 
+     /tmp/ccH1FaDF.s:56     .text:000000000000003c .L0 
+     /tmp/ccH1FaDF.s:58     .text:0000000000000040 .L0 
+     /tmp/ccH1FaDF.s:60     .text:0000000000000040 .L0 
+     /tmp/ccH1FaDF.s:61     .text:0000000000000040 .L0 
+     /tmp/ccH1FaDF.s:64     .text:0000000000000048 .L0 
+     /tmp/ccH1FaDF.s:65     .text:0000000000000048 .L0 
+     /tmp/ccH1FaDF.s:69     .text:0000000000000054 .L0 
+     /tmp/ccH1FaDF.s:70     .text:0000000000000054 .L0 
+     /tmp/ccH1FaDF.s:75     .text:0000000000000068 .L0 
+     /tmp/ccH1FaDF.s:76     .text:0000000000000068 .L0 
+     /tmp/ccH1FaDF.s:79     .text:0000000000000070 .L0 
+     /tmp/ccH1FaDF.s:81     .text:0000000000000074 .L0 
+     /tmp/ccH1FaDF.s:83     .text:0000000000000078 .L0 
+     /tmp/ccH1FaDF.s:84     .text:0000000000000078 .L0 
+     /tmp/ccH1FaDF.s:89     .text:0000000000000088 .L0 
+     /tmp/ccH1FaDF.s:90     .text:0000000000000088 .L0 
+     /tmp/ccH1FaDF.s:93     .text:0000000000000090 .L0 
+     /tmp/ccH1FaDF.s:94     .text:0000000000000094 .L0 
+     /tmp/ccH1FaDF.s:96     .text:0000000000000098 .L0 
+     /tmp/ccH1FaDF.s:97     .text:0000000000000098 .L0 
+     /tmp/ccH1FaDF.s:99     .text:000000000000009c .L0 
+     /tmp/ccH1FaDF.s:101    .text:00000000000000a0 .L0 
+     /tmp/ccH1FaDF.s:104    .text:00000000000000a4 .L0 
+     /tmp/ccH1FaDF.s:106    .text:00000000000000a8 .L0 
+     /tmp/ccH1FaDF.s:112    .text:00000000000000a8 _ZN13SemaphoreBase5blockEv
+     /tmp/ccH1FaDF.s:115    .text:00000000000000a8 .L0 
+     /tmp/ccH1FaDF.s:117    .text:00000000000000a8 .L0 
+     /tmp/ccH1FaDF.s:118    .text:00000000000000ac .L0 
+     /tmp/ccH1FaDF.s:124    .text:00000000000000c0 .L0 
+     /tmp/ccH1FaDF.s:125    .text:00000000000000c0 .L0 
+     /tmp/ccH1FaDF.s:126    .text:00000000000000c0 .L0 
+     /tmp/ccH1FaDF.s:127    .text:00000000000000c0 .L0 
+     /tmp/ccH1FaDF.s:128    .text:00000000000000c0 .L0 
+     /tmp/ccH1FaDF.s:130    .text:00000000000000c4 .L0 
+     /tmp/ccH1FaDF.s:133    .text:00000000000000c8 .L0 
+GAS LISTING /tmp/ccH1FaDF.s 			page 14
+
+
+     /tmp/ccH1FaDF.s:134    .text:00000000000000c8 .L0 
+     /tmp/ccH1FaDF.s:141    .text:00000000000000d4 .L0 
+     /tmp/ccH1FaDF.s:142    .text:00000000000000d4 .L0 
+     /tmp/ccH1FaDF.s:143    .text:00000000000000d4 .L0 
+     /tmp/ccH1FaDF.s:150    .text:00000000000000e4 .L0 
+     /tmp/ccH1FaDF.s:151    .text:00000000000000e4 .L0 
+     /tmp/ccH1FaDF.s:153    .text:00000000000000e8 .L0 
+     /tmp/ccH1FaDF.s:154    .text:00000000000000e8 .L0 
+     /tmp/ccH1FaDF.s:159    .text:00000000000000ec .L0 
+     /tmp/ccH1FaDF.s:160    .text:00000000000000ec .L0 
+     /tmp/ccH1FaDF.s:161    .text:00000000000000ec .L0 
+     /tmp/ccH1FaDF.s:163    .text:00000000000000f0 .L0 
+     /tmp/ccH1FaDF.s:165    .text:00000000000000f4 .L0 
+     /tmp/ccH1FaDF.s:166    .text:00000000000000f4 .L0 
+     /tmp/ccH1FaDF.s:168    .text:00000000000000f8 .L0 
+     /tmp/ccH1FaDF.s:169    .text:00000000000000f8 .L0 
+     /tmp/ccH1FaDF.s:172    .text:00000000000000fc .L0 
+     /tmp/ccH1FaDF.s:173    .text:00000000000000fc .L0 
+     /tmp/ccH1FaDF.s:176    .text:0000000000000104 .L0 
+     /tmp/ccH1FaDF.s:177    .text:0000000000000104 .L0 
+     /tmp/ccH1FaDF.s:180    .text:0000000000000108 .L0 
+     /tmp/ccH1FaDF.s:181    .text:0000000000000108 .L0 
+     /tmp/ccH1FaDF.s:183    .text:000000000000010c .L0 
+     /tmp/ccH1FaDF.s:184    .text:000000000000010c .L0 
+     /tmp/ccH1FaDF.s:189    .text:0000000000000110 .L0 
+     /tmp/ccH1FaDF.s:190    .text:0000000000000110 .L0 
+     /tmp/ccH1FaDF.s:191    .text:0000000000000110 .L0 
+     /tmp/ccH1FaDF.s:192    .text:0000000000000110 .L0 
+     /tmp/ccH1FaDF.s:193    .text:0000000000000110 .L0 
+     /tmp/ccH1FaDF.s:199    .text:000000000000011c .L0 
+     /tmp/ccH1FaDF.s:203    .text:0000000000000120 .L0 
+     /tmp/ccH1FaDF.s:205    .text:0000000000000128 .L0 
+     /tmp/ccH1FaDF.s:206    .text:0000000000000128 .L0 
+     /tmp/ccH1FaDF.s:208    .text:000000000000012c .L0 
+     /tmp/ccH1FaDF.s:209    .text:000000000000012c .L0 
+     /tmp/ccH1FaDF.s:211    .text:0000000000000130 .L0 
+     /tmp/ccH1FaDF.s:214    .text:0000000000000134 .L0 
+     /tmp/ccH1FaDF.s:216    .text:0000000000000138 .L0 
+     /tmp/ccH1FaDF.s:219    .text:000000000000013c .L0 
+     /tmp/ccH1FaDF.s:223    .text:0000000000000140 .L0 
+     /tmp/ccH1FaDF.s:225    .text:0000000000000140 .L0 
+     /tmp/ccH1FaDF.s:226    .text:0000000000000140 .L0 
+     /tmp/ccH1FaDF.s:228    .text:0000000000000144 .L0 
+     /tmp/ccH1FaDF.s:233    .text:000000000000014c .L0 
+     /tmp/ccH1FaDF.s:236    .text:0000000000000154 .L0 
+     /tmp/ccH1FaDF.s:242    .text:0000000000000154 _ZN13SemaphoreBase4waitEv
+     /tmp/ccH1FaDF.s:245    .text:0000000000000154 .L0 
+     /tmp/ccH1FaDF.s:247    .text:0000000000000154 .L0 
+     /tmp/ccH1FaDF.s:249    .text:0000000000000154 .L0 
+     /tmp/ccH1FaDF.s:250    .text:0000000000000154 .L0 
+     /tmp/ccH1FaDF.s:252    .text:0000000000000158 .L0 
+     /tmp/ccH1FaDF.s:254    .text:000000000000015c .L0 
+     /tmp/ccH1FaDF.s:256    .text:0000000000000160 .L0 
+     /tmp/ccH1FaDF.s:260    .text:0000000000000168 .L0 
+     /tmp/ccH1FaDF.s:263    .text:000000000000016c .L0 
+     /tmp/ccH1FaDF.s:267    .text:0000000000000170 .L0 
+     /tmp/ccH1FaDF.s:268    .text:0000000000000174 .L0 
+GAS LISTING /tmp/ccH1FaDF.s 			page 15
+
+
+     /tmp/ccH1FaDF.s:271    .text:000000000000017c .L0 
+     /tmp/ccH1FaDF.s:272    .text:000000000000017c .L0 
+     /tmp/ccH1FaDF.s:274    .text:0000000000000180 .L0 
+     /tmp/ccH1FaDF.s:278    .text:0000000000000180 .L0 
+     /tmp/ccH1FaDF.s:279    .text:0000000000000180 .L0 
+     /tmp/ccH1FaDF.s:284    .text:0000000000000188 .L0 
+     /tmp/ccH1FaDF.s:285    .text:0000000000000188 .L0 
+     /tmp/ccH1FaDF.s:286    .text:000000000000018c .L0 
+     /tmp/ccH1FaDF.s:288    .text:0000000000000190 .L0 
+     /tmp/ccH1FaDF.s:289    .text:0000000000000190 .L0 
+     /tmp/ccH1FaDF.s:291    .text:0000000000000194 .L0 
+     /tmp/ccH1FaDF.s:293    .text:0000000000000198 .L0 
+     /tmp/ccH1FaDF.s:299    .text:0000000000000198 _ZN13SemaphoreBase7unblockEv
+     /tmp/ccH1FaDF.s:302    .text:0000000000000198 .L0 
+     /tmp/ccH1FaDF.s:304    .text:0000000000000198 .L0 
+     /tmp/ccH1FaDF.s:305    .text:0000000000000198 .L0 
+     /tmp/ccH1FaDF.s:306    .text:0000000000000198 .L0 
+     /tmp/ccH1FaDF.s:308    .text:000000000000019c .L0 
+     /tmp/ccH1FaDF.s:310    .text:00000000000001a0 .L0 
+     /tmp/ccH1FaDF.s:311    .text:00000000000001a4 .L0 
+     /tmp/ccH1FaDF.s:314    .text:00000000000001ac .L0 
+     /tmp/ccH1FaDF.s:315    .text:00000000000001ac .L0 
+     /tmp/ccH1FaDF.s:317    .text:00000000000001b0 .L0 
+     /tmp/ccH1FaDF.s:320    .text:00000000000001b0 .L0 
+     /tmp/ccH1FaDF.s:321    .text:00000000000001b0 .L0 
+     /tmp/ccH1FaDF.s:322    .text:00000000000001b0 .L0 
+     /tmp/ccH1FaDF.s:324    .text:00000000000001b4 .L0 
+     /tmp/ccH1FaDF.s:326    .text:00000000000001b8 .L0 
+     /tmp/ccH1FaDF.s:329    .text:00000000000001bc .L0 
+     /tmp/ccH1FaDF.s:330    .text:00000000000001bc .L0 
+     /tmp/ccH1FaDF.s:333    .text:00000000000001c0 .L0 
+     /tmp/ccH1FaDF.s:337    .text:00000000000001cc .L0 
+     /tmp/ccH1FaDF.s:338    .text:00000000000001cc .L0 
+     /tmp/ccH1FaDF.s:340    .text:00000000000001d0 .L0 
+     /tmp/ccH1FaDF.s:341    .text:00000000000001d4 .L0 
+     /tmp/ccH1FaDF.s:342    .text:00000000000001d4 .L0 
+     /tmp/ccH1FaDF.s:344    .text:00000000000001d8 .L0 
+     /tmp/ccH1FaDF.s:345    .text:00000000000001d8 .L0 
+     /tmp/ccH1FaDF.s:347    .text:00000000000001dc .L0 
+     /tmp/ccH1FaDF.s:351    .text:00000000000001e0 .L0 
+     /tmp/ccH1FaDF.s:353    .text:00000000000001e0 .L0 
+     /tmp/ccH1FaDF.s:354    .text:00000000000001e0 .L0 
+     /tmp/ccH1FaDF.s:358    .text:00000000000001e8 .L0 
+     /tmp/ccH1FaDF.s:359    .text:00000000000001e8 .L0 
+     /tmp/ccH1FaDF.s:360    .text:00000000000001e8 .L0 
+     /tmp/ccH1FaDF.s:362    .text:00000000000001e8 .L0 
+     /tmp/ccH1FaDF.s:365    .text:00000000000001ec .L0 
+     /tmp/ccH1FaDF.s:366    .text:00000000000001f0 .L0 
+     /tmp/ccH1FaDF.s:372    .text:00000000000001f0 _ZN13SemaphoreBase5closeEv
+     /tmp/ccH1FaDF.s:375    .text:00000000000001f0 .L0 
+     /tmp/ccH1FaDF.s:377    .text:00000000000001f0 .L0 
+     /tmp/ccH1FaDF.s:378    .text:00000000000001f4 .L0 
+     /tmp/ccH1FaDF.s:383    .text:0000000000000204 .L0 
+     /tmp/ccH1FaDF.s:384    .text:0000000000000204 .L0 
+     /tmp/ccH1FaDF.s:385    .text:0000000000000204 .L0 
+     /tmp/ccH1FaDF.s:386    .text:0000000000000204 .L0 
+     /tmp/ccH1FaDF.s:388    .text:0000000000000208 .L0 
+GAS LISTING /tmp/ccH1FaDF.s 			page 16
+
+
+     /tmp/ccH1FaDF.s:390    .text:0000000000000208 .L0 
+     /tmp/ccH1FaDF.s:391    .text:0000000000000208 .L0 
+     /tmp/ccH1FaDF.s:393    .text:000000000000020c .L0 
+     /tmp/ccH1FaDF.s:396    .text:0000000000000214 .L0 
+     /tmp/ccH1FaDF.s:397    .text:0000000000000214 .L0 
+     /tmp/ccH1FaDF.s:400    .text:000000000000021c .L0 
+     /tmp/ccH1FaDF.s:401    .text:000000000000021c .L0 
+     /tmp/ccH1FaDF.s:403    .text:0000000000000220 .L0 
+     /tmp/ccH1FaDF.s:407    .text:0000000000000224 .L0 
+     /tmp/ccH1FaDF.s:408    .text:0000000000000224 .L0 
+     /tmp/ccH1FaDF.s:412    .text:000000000000022c .L0 
+     /tmp/ccH1FaDF.s:413    .text:000000000000022c .L0 
+     /tmp/ccH1FaDF.s:416    .text:0000000000000234 .L0 
+     /tmp/ccH1FaDF.s:417    .text:0000000000000234 .L0 
+     /tmp/ccH1FaDF.s:421    .text:0000000000000240 .L0 
+     /tmp/ccH1FaDF.s:423    .text:0000000000000244 .L0 
+     /tmp/ccH1FaDF.s:428    .text:0000000000000248 .L0 
+     /tmp/ccH1FaDF.s:430    .text:0000000000000250 .L0 
+     /tmp/ccH1FaDF.s:431    .text:0000000000000250 .L0 
+     /tmp/ccH1FaDF.s:433    .text:0000000000000254 .L0 
+     /tmp/ccH1FaDF.s:434    .text:0000000000000254 .L0 
+     /tmp/ccH1FaDF.s:436    .text:0000000000000258 .L0 
+     /tmp/ccH1FaDF.s:438    .text:000000000000025c .L0 
+     /tmp/ccH1FaDF.s:440    .text:0000000000000260 .L0 
+     /tmp/ccH1FaDF.s:444    .text:0000000000000264 .L0 
+     /tmp/ccH1FaDF.s:446    .text:0000000000000264 .L0 
+     /tmp/ccH1FaDF.s:448    .text:000000000000026c .L0 
+     /tmp/ccH1FaDF.s:454    .text:000000000000026c _ZN13SemaphoreBase6signalEv
+     /tmp/ccH1FaDF.s:457    .text:000000000000026c .L0 
+     /tmp/ccH1FaDF.s:459    .text:000000000000026c .L0 
+     /tmp/ccH1FaDF.s:461    .text:000000000000026c .L0 
+     /tmp/ccH1FaDF.s:462    .text:000000000000026c .L0 
+     /tmp/ccH1FaDF.s:464    .text:0000000000000270 .L0 
+     /tmp/ccH1FaDF.s:467    .text:0000000000000278 .L0 
+     /tmp/ccH1FaDF.s:469    .text:000000000000027c .L0 
+     /tmp/ccH1FaDF.s:472    .text:0000000000000280 .L0 
+     /tmp/ccH1FaDF.s:475    .text:0000000000000284 .L0 
+     /tmp/ccH1FaDF.s:479    .text:0000000000000288 .L0 
+     /tmp/ccH1FaDF.s:480    .text:000000000000028c .L0 
+     /tmp/ccH1FaDF.s:483    .text:0000000000000294 .L0 
+     /tmp/ccH1FaDF.s:484    .text:0000000000000294 .L0 
+     /tmp/ccH1FaDF.s:486    .text:0000000000000298 .L0 
+     /tmp/ccH1FaDF.s:490    .text:0000000000000298 .L0 
+     /tmp/ccH1FaDF.s:491    .text:0000000000000298 .L0 
+     /tmp/ccH1FaDF.s:496    .text:00000000000002a0 .L0 
+     /tmp/ccH1FaDF.s:497    .text:00000000000002a0 .L0 
+     /tmp/ccH1FaDF.s:498    .text:00000000000002a4 .L0 
+     /tmp/ccH1FaDF.s:500    .text:00000000000002a8 .L0 
+     /tmp/ccH1FaDF.s:501    .text:00000000000002a8 .L0 
+     /tmp/ccH1FaDF.s:503    .text:00000000000002ac .L0 
+     /tmp/ccH1FaDF.s:505    .text:00000000000002b0 .L0 
+     /tmp/ccH1FaDF.s:515    .text:00000000000002b0 .L0 
+     /tmp/ccH1FaDF.s:65     .text:0000000000000048 .L0 
+     /tmp/ccH1FaDF.s:70     .text:0000000000000054 .L0 
+     /tmp/ccH1FaDF.s:134    .text:00000000000000c8 .L0 
+     /tmp/ccH1FaDF.s:222    .text:0000000000000140 .L6
+     /tmp/ccH1FaDF.s:231    .text:000000000000014c .L10
+GAS LISTING /tmp/ccH1FaDF.s 			page 17
+
+
+     /tmp/ccH1FaDF.s:170    .text:00000000000000fc .L7
+     /tmp/ccH1FaDF.s:201    .text:0000000000000120 .L8
+     /tmp/ccH1FaDF.s:265    .text:0000000000000170 .L18
+     /tmp/ccH1FaDF.s:357    .text:00000000000001e8 .L22
+     /tmp/ccH1FaDF.s:350    .text:00000000000001e0 .L27
+     /tmp/ccH1FaDF.s:327    .text:00000000000001bc .L21
+     /tmp/ccH1FaDF.s:443    .text:0000000000000264 .L31
+     /tmp/ccH1FaDF.s:425    .text:0000000000000248 .L29
+     /tmp/ccH1FaDF.s:405    .text:0000000000000224 .L30
+     /tmp/ccH1FaDF.s:477    .text:0000000000000288 .L40
+     /tmp/ccH1FaDF.s:1532   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccH1FaDF.s:2952   .debug_str:000000000000051e .LASF85
+     /tmp/ccH1FaDF.s:2800   .debug_str:000000000000004b .LASF86
+     /tmp/ccH1FaDF.s:2848   .debug_str:00000000000001f1 .LASF87
+     /tmp/ccH1FaDF.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccH1FaDF.s:508    .text:00000000000002b0 .Letext0
+     /tmp/ccH1FaDF.s:2786   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccH1FaDF.s:2902   .debug_str:00000000000003eb .LASF0
+     /tmp/ccH1FaDF.s:2910   .debug_str:0000000000000425 .LASF1
+     /tmp/ccH1FaDF.s:2886   .debug_str:0000000000000333 .LASF2
+     /tmp/ccH1FaDF.s:2864   .debug_str:00000000000002b3 .LASF4
+     /tmp/ccH1FaDF.s:2940   .debug_str:00000000000004cf .LASF3
+     /tmp/ccH1FaDF.s:2806   .debug_str:0000000000000088 .LASF5
+     /tmp/ccH1FaDF.s:2914   .debug_str:000000000000043f .LASF6
+     /tmp/ccH1FaDF.s:2900   .debug_str:00000000000003d8 .LASF7
+     /tmp/ccH1FaDF.s:2962   .debug_str:0000000000000638 .LASF8
+     /tmp/ccH1FaDF.s:2852   .debug_str:0000000000000226 .LASF9
+     /tmp/ccH1FaDF.s:2922   .debug_str:000000000000046e .LASF10
+     /tmp/ccH1FaDF.s:2954   .debug_str:00000000000005e2 .LASF11
+     /tmp/ccH1FaDF.s:2812   .debug_str:00000000000000bf .LASF12
+     /tmp/ccH1FaDF.s:2794   .debug_str:0000000000000028 .LASF13
+     /tmp/ccH1FaDF.s:2818   .debug_str:0000000000000107 .LASF14
+     /tmp/ccH1FaDF.s:2934   .debug_str:00000000000004ae .LASF15
+     /tmp/ccH1FaDF.s:2828   .debug_str:0000000000000171 .LASF16
+     /tmp/ccH1FaDF.s:2846   .debug_str:00000000000001ec .LASF17
+     /tmp/ccH1FaDF.s:2798   .debug_str:0000000000000043 .LASF88
+     /tmp/ccH1FaDF.s:2836   .debug_str:00000000000001b8 .LASF18
+     /tmp/ccH1FaDF.s:2926   .debug_str:0000000000000482 .LASF20
+     /tmp/ccH1FaDF.s:2916   .debug_str:0000000000000452 .LASF22
+     /tmp/ccH1FaDF.s:2850   .debug_str:000000000000020f .LASF24
+     /tmp/ccH1FaDF.s:2888   .debug_str:0000000000000341 .LASF19
+     /tmp/ccH1FaDF.s:2860   .debug_str:0000000000000274 .LASF21
+     /tmp/ccH1FaDF.s:2880   .debug_str:0000000000000311 .LASF23
+     /tmp/ccH1FaDF.s:2804   .debug_str:000000000000006f .LASF25
+     /tmp/ccH1FaDF.s:2874   .debug_str:00000000000002de .LASF26
+     /tmp/ccH1FaDF.s:2964   .debug_str:0000000000000648 .LASF27
+     /tmp/ccH1FaDF.s:2928   .debug_str:000000000000048e .LASF89
+     /tmp/ccH1FaDF.s:2936   .debug_str:00000000000004c4 .LASF90
+     /tmp/ccH1FaDF.s:2892   .debug_str:0000000000000352 .LASF91
+     /tmp/ccH1FaDF.s:2840   .debug_str:00000000000001c3 .LASF92
+     /tmp/ccH1FaDF.s:2972   .debug_str:00000000000006b4 .LASF46
+     /tmp/ccH1FaDF.s:2948   .debug_str:000000000000050d .LASF48
+     /tmp/ccH1FaDF.s:2832   .debug_str:000000000000018c .LASF93
+     /tmp/ccH1FaDF.s:2870   .debug_str:00000000000002d1 .LASF28
+     /tmp/ccH1FaDF.s:2822   .debug_str:0000000000000136 .LASF29
+     /tmp/ccH1FaDF.s:2872   .debug_str:00000000000002d6 .LASF30
+     /tmp/ccH1FaDF.s:2866   .debug_str:00000000000002ba .LASF31
+GAS LISTING /tmp/ccH1FaDF.s 			page 18
+
+
+     /tmp/ccH1FaDF.s:2868   .debug_str:00000000000002c8 .LASF32
+     /tmp/ccH1FaDF.s:2906   .debug_str:0000000000000401 .LASF33
+     /tmp/ccH1FaDF.s:2882   .debug_str:000000000000031e .LASF34
+     /tmp/ccH1FaDF.s:2856   .debug_str:0000000000000250 .LASF36
+     /tmp/ccH1FaDF.s:2970   .debug_str:00000000000006a6 .LASF73
+     /tmp/ccH1FaDF.s:2862   .debug_str:000000000000028b .LASF74
+     /tmp/ccH1FaDF.s:2904   .debug_str:00000000000003f8 .LASF35
+     /tmp/ccH1FaDF.s:2844   .debug_str:00000000000001d9 .LASF37
+     /tmp/ccH1FaDF.s:2942   .debug_str:00000000000004e1 .LASF38
+     /tmp/ccH1FaDF.s:2960   .debug_str:0000000000000622 .LASF39
+     /tmp/ccH1FaDF.s:2878   .debug_str:0000000000000306 .LASF40
+     /tmp/ccH1FaDF.s:2858   .debug_str:0000000000000269 .LASF41
+     /tmp/ccH1FaDF.s:2842   .debug_str:00000000000001cb .LASF42
+     /tmp/ccH1FaDF.s:2930   .debug_str:0000000000000493 .LASF43
+     /tmp/ccH1FaDF.s:2980   .debug_str:00000000000006f7 .LASF44
+     /tmp/ccH1FaDF.s:2932   .debug_str:0000000000000498 .LASF45
+     /tmp/ccH1FaDF.s:2792   .debug_str:000000000000001d .LASF47
+     /tmp/ccH1FaDF.s:2810   .debug_str:0000000000000097 .LASF49
+     /tmp/ccH1FaDF.s:2796   .debug_str:0000000000000038 .LASF94
+     /tmp/ccH1FaDF.s:2984   .debug_str:0000000000000701 .LASF95
+     /tmp/ccH1FaDF.s:2944   .debug_str:00000000000004f2 .LASF50
+     /tmp/ccH1FaDF.s:2884   .debug_str:000000000000032c .LASF51
+     /tmp/ccH1FaDF.s:2830   .debug_str:0000000000000187 .LASF52
+     /tmp/ccH1FaDF.s:2890   .debug_str:000000000000034d .LASF53
+     /tmp/ccH1FaDF.s:2838   .debug_str:00000000000001bd .LASF54
+     /tmp/ccH1FaDF.s:2814   .debug_str:00000000000000cf .LASF55
+     /tmp/ccH1FaDF.s:2808   .debug_str:000000000000008f .LASF56
+     /tmp/ccH1FaDF.s:2816   .debug_str:00000000000000ea .LASF57
+     /tmp/ccH1FaDF.s:2968   .debug_str:0000000000000675 .LASF58
+     /tmp/ccH1FaDF.s:2898   .debug_str:0000000000000391 .LASF59
+     /tmp/ccH1FaDF.s:2802   .debug_str:0000000000000061 .LASF60
+     /tmp/ccH1FaDF.s:2894   .debug_str:0000000000000362 .LASF61
+     /tmp/ccH1FaDF.s:2946   .debug_str:0000000000000500 .LASF62
+     /tmp/ccH1FaDF.s:2956   .debug_str:00000000000005f1 .LASF63
+     /tmp/ccH1FaDF.s:2790   .debug_str:0000000000000006 .LASF64
+     /tmp/ccH1FaDF.s:2788   .debug_str:0000000000000000 .LASF65
+     /tmp/ccH1FaDF.s:2876   .debug_str:00000000000002eb .LASF66
+     /tmp/ccH1FaDF.s:2982   .debug_str:00000000000006fc .LASF67
+     /tmp/ccH1FaDF.s:2908   .debug_str:000000000000040b .LASF68
+     /tmp/ccH1FaDF.s:2918   .debug_str:000000000000045d .LASF69
+     /tmp/ccH1FaDF.s:2854   .debug_str:0000000000000234 .LASF70
+     /tmp/ccH1FaDF.s:2978   .debug_str:00000000000006e0 .LASF71
+     /tmp/ccH1FaDF.s:2958   .debug_str:0000000000000614 .LASF72
+     /tmp/ccH1FaDF.s:2826   .debug_str:0000000000000153 .LASF75
+     /tmp/ccH1FaDF.s:2920   .debug_str:0000000000000464 .LASF76
+     /tmp/ccH1FaDF.s:2834   .debug_str:00000000000001a4 .LASF96
+     /tmp/ccH1FaDF.s:2820   .debug_str:0000000000000113 .LASF97
+     /tmp/ccH1FaDF.s:300    .text:0000000000000198 .LFB29
+     /tmp/ccH1FaDF.s:367    .text:00000000000001f0 .LFE29
+     /tmp/ccH1FaDF.s:2924   .debug_str:000000000000047d .LASF78
+     /tmp/ccH1FaDF.s:2556   .debug_loc:0000000000000000 .LLST10
+     /tmp/ccH1FaDF.s:2938   .debug_str:00000000000004ca .LASF77
+     /tmp/ccH1FaDF.s:2581   .debug_loc:0000000000000062 .LLST11
+     /tmp/ccH1FaDF.s:335    .text:00000000000001cc .LVL30
+     /tmp/ccH1FaDF.s:113    .text:00000000000000a8 .LFB28
+     /tmp/ccH1FaDF.s:237    .text:0000000000000154 .LFE28
+     /tmp/ccH1FaDF.s:2592   .debug_loc:0000000000000098 .LLST1
+GAS LISTING /tmp/ccH1FaDF.s 			page 19
+
+
+     /tmp/ccH1FaDF.s:2621   .debug_loc:000000000000010d .LLST2
+     /tmp/ccH1FaDF.s:2950   .debug_str:0000000000000519 .LASF79
+     /tmp/ccH1FaDF.s:2632   .debug_loc:0000000000000143 .LLST3
+     /tmp/ccH1FaDF.s:2912   .debug_str:0000000000000438 .LASF80
+     /tmp/ccH1FaDF.s:2643   .debug_loc:0000000000000179 .LLST4
+     /tmp/ccH1FaDF.s:138    .text:00000000000000d4 .LBB7
+     /tmp/ccH1FaDF.s:158    .text:00000000000000ec .LBE7
+     /tmp/ccH1FaDF.s:2654   .debug_loc:00000000000001af .LLST5
+     /tmp/ccH1FaDF.s:2662   .debug_loc:00000000000001d3 .LLST6
+     /tmp/ccH1FaDF.s:2669   .debug_loc:00000000000001f6 .LLST7
+     /tmp/ccH1FaDF.s:146    .text:00000000000000e0 .LVL10
+     /tmp/ccH1FaDF.s:187    .text:0000000000000110 .LBB9
+     /tmp/ccH1FaDF.s:197    .text:000000000000011c .LBE9
+     /tmp/ccH1FaDF.s:2680   .debug_loc:000000000000022c .LLST8
+     /tmp/ccH1FaDF.s:195    .text:000000000000011c .LVL16
+     /tmp/ccH1FaDF.s:174    .text:0000000000000104 .LVL13
+     /tmp/ccH1FaDF.s:455    .text:000000000000026c .LFB27
+     /tmp/ccH1FaDF.s:506    .text:00000000000002b0 .LFE27
+     /tmp/ccH1FaDF.s:2687   .debug_loc:000000000000024f .LLST14
+     /tmp/ccH1FaDF.s:488    .text:0000000000000298 .LBB16
+     /tmp/ccH1FaDF.s:494    .text:00000000000002a0 .LBE16
+     /tmp/ccH1FaDF.s:492    .text:00000000000002a0 .LVL42
+     /tmp/ccH1FaDF.s:243    .text:0000000000000154 .LFB26
+     /tmp/ccH1FaDF.s:294    .text:0000000000000198 .LFE26
+     /tmp/ccH1FaDF.s:2712   .debug_loc:00000000000002b1 .LLST9
+     /tmp/ccH1FaDF.s:276    .text:0000000000000180 .LBB12
+     /tmp/ccH1FaDF.s:282    .text:0000000000000188 .LBE12
+     /tmp/ccH1FaDF.s:280    .text:0000000000000188 .LVL26
+     /tmp/ccH1FaDF.s:373    .text:00000000000001f0 .LFB25
+     /tmp/ccH1FaDF.s:449    .text:000000000000026c .LFE25
+     /tmp/ccH1FaDF.s:2737   .debug_loc:0000000000000313 .LLST12
+     /tmp/ccH1FaDF.s:410    .text:000000000000022c .LBB14
+     /tmp/ccH1FaDF.s:426    .text:0000000000000248 .LBE14
+     /tmp/ccH1FaDF.s:2759   .debug_loc:0000000000000372 .LLST13
+     /tmp/ccH1FaDF.s:419    .text:0000000000000240 .LVL36
+     /tmp/ccH1FaDF.s:44     .text:0000000000000028 .LFB24
+     /tmp/ccH1FaDF.s:107    .text:00000000000000a8 .LFE24
+     /tmp/ccH1FaDF.s:2766   .debug_loc:0000000000000395 .LLST0
+     /tmp/ccH1FaDF.s:62     .text:0000000000000048 .LVL1
+     /tmp/ccH1FaDF.s:77     .text:0000000000000070 .LVL3
+     /tmp/ccH1FaDF.s:87     .text:0000000000000088 .LVL4
+     /tmp/ccH1FaDF.s:91     .text:0000000000000090 .LVL5
+     /tmp/ccH1FaDF.s:2824   .debug_str:000000000000013c .LASF98
+     /tmp/ccH1FaDF.s:10     .text:0000000000000000 .LFB22
+     /tmp/ccH1FaDF.s:36     .text:0000000000000028 .LFE22
+     /tmp/ccH1FaDF.s:2976   .debug_str:00000000000006d0 .LASF81
+     /tmp/ccH1FaDF.s:2896   .debug_str:0000000000000386 .LASF83
+     /tmp/ccH1FaDF.s:2974   .debug_str:00000000000006c1 .LASF82
+     /tmp/ccH1FaDF.s:2966   .debug_str:000000000000066b .LASF84
+     /tmp/ccH1FaDF.s:303    .text:0000000000000198 .LVL27
+     /tmp/ccH1FaDF.s:331    .text:00000000000001c0 .LVL29
+     /tmp/ccH1FaDF.s:349    .text:00000000000001e0 .LVL31
+     /tmp/ccH1FaDF.s:363    .text:00000000000001ec .LVL33
+     /tmp/ccH1FaDF.s:319    .text:00000000000001b0 .LVL28
+     /tmp/ccH1FaDF.s:356    .text:00000000000001e8 .LVL32
+     /tmp/ccH1FaDF.s:116    .text:00000000000000a8 .LVL7
+     /tmp/ccH1FaDF.s:144    .text:00000000000000d8 .LVL9
+GAS LISTING /tmp/ccH1FaDF.s 			page 20
+
+
+     /tmp/ccH1FaDF.s:178    .text:0000000000000108 .LVL14
+     /tmp/ccH1FaDF.s:221    .text:0000000000000140 .LVL20
+     /tmp/ccH1FaDF.s:230    .text:000000000000014c .LVL21
+     /tmp/ccH1FaDF.s:136    .text:00000000000000d4 .LVL8
+     /tmp/ccH1FaDF.s:217    .text:0000000000000138 .LVL19
+     /tmp/ccH1FaDF.s:156    .text:00000000000000ec .LVL12
+     /tmp/ccH1FaDF.s:212    .text:0000000000000130 .LVL18
+     /tmp/ccH1FaDF.s:200    .text:0000000000000120 .LVL17
+     /tmp/ccH1FaDF.s:234    .text:0000000000000150 .LVL22
+     /tmp/ccH1FaDF.s:148    .text:00000000000000e4 .LVL11
+     /tmp/ccH1FaDF.s:186    .text:0000000000000110 .LVL15
+     /tmp/ccH1FaDF.s:458    .text:000000000000026c .LVL39
+     /tmp/ccH1FaDF.s:473    .text:0000000000000284 .LVL40
+     /tmp/ccH1FaDF.s:476    .text:0000000000000288 .LVL41
+     /tmp/ccH1FaDF.s:246    .text:0000000000000154 .LVL23
+     /tmp/ccH1FaDF.s:261    .text:000000000000016c .LVL24
+     /tmp/ccH1FaDF.s:264    .text:0000000000000170 .LVL25
+     /tmp/ccH1FaDF.s:376    .text:00000000000001f0 .LVL34
+     /tmp/ccH1FaDF.s:404    .text:0000000000000224 .LVL35
+     /tmp/ccH1FaDF.s:424    .text:0000000000000248 .LVL37
+     /tmp/ccH1FaDF.s:442    .text:0000000000000264 .LVL38
+     /tmp/ccH1FaDF.s:67     .text:0000000000000054 .LVL2
+     /tmp/ccH1FaDF.s:102    .text:00000000000000a0 .LVL6
+     /tmp/ccH1FaDF.s:516    .debug_info:0000000000000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+_ZN13SemaphoreBase13pushRegistersEv
+_ZN3TCB7runningE
+_ZN3TCB21numberOfActiveThreadsE
+_ZN9Scheduler3getEv
+_ZN3TCB13contextSwitchEPNS_7ContextES1_
+_ZN13SemaphoreBase12popRegistersEv
+_Z10kmem_allocm
+_Z9kmem_freePv
+_ZN9Scheduler3putEP13SchedulerNode
